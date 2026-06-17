@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>PreencheBR — Regras personalizadas</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">
+        <img src="icons/icone-preenche.png" alt="PreencheBR" class="logo-icon" />
+        <h1>PreencheBR</h1>
+      </div>
+      <p class="subtitle">Regras personalizadas de preenchimento</p>
+    </header>
+
+    <main>
+      <section class="atalho-section">
+        <h2>Atalho de teclado</h2>
+        <p class="hint">
+          Pressione a combinação desejada para preencher o formulário sem abrir o popup.
+          Use ao menos uma tecla modificadora (Ctrl, Alt ou Shift) junto a uma letra ou número.
+        </p>
+        <div class="atalho-recorder">
+          <div id="atalho-display" class="atalho-display" tabindex="0" title="Clique e pressione as teclas desejadas">
+            <span id="atalho-texto">Clique aqui e pressione as teclas</span>
+          </div>
+          <button id="btn-salvar-atalho" class="btn-primary" disabled>Salvar atalho</button>
+          <button id="btn-limpar-atalho" class="btn-ghost">Redefinir</button>
+        </div>
+        <div id="atalho-feedback" class="atalho-feedback" style="display:none"></div>
+      </section>
+
+      <section class="json-section">
+        <h2>Importar perfis via JSON</h2>
+        <p class="hint">
+          Cole um array JSON com um ou mais perfis no formato do PreencheBR. Os perfis importados
+          são adicionados à lista de perfis disponíveis nesta sessão.
+          <a href="#" id="btn-ver-exemplo-perfil" class="link-exemplo">Ver exemplo</a>
+        </p>
+        <pre id="exemplo-perfil" class="json-exemplo" style="display:none">[
+  {
+    "id": "meu_perfil_001",
+    "label": "João Silva — PF (SP)",
+    "tipo": "pf",
+    "pessoaFisica": {
+      "nomeCompleto": "João Silva",
+      "primeiroNome": "João",
+      "sobrenome": "Silva",
+      "cpf": "123.456.789-09",
+      "rg": "12.345.678-9",
+      "dataNascimento": "1990-05-15",
+      "genero": "Masculino",
+      "email": "joao.silva@example.com",
+      "telefone": "(11) 3000-0000",
+      "celular": "(11) 91234-5678",
+      "profissao": "Engenheiro"
+    },
+    "endereco": {
+      "cep": "01310-100",
+      "logradouro": "Avenida Paulista",
+      "numero": "100",
+      "complemento": "Apto 1",
+      "bairro": "Bela Vista",
+      "cidade": "São Paulo",
+      "estado": "São Paulo",
+      "uf": "SP",
+      "pais": "Brasil"
+    },
+    "veiculo": {
+      "placa": "ABC1D23",
+      "renavam": "12345678901",
+      "chassi": "9BWZZZ377VT000001",
+      "marca": "Toyota",
+      "modelo": "Corolla 2.0",
+      "ano": 2022,
+      "cor": "Prata",
+      "combustivel": "Flex",
+      "categoria": "Passeio"
+    },
+    "outros": { "observacoes": "Perfil de teste." }
+  }
+]</pre>
+        <div class="json-input-wrap">
+          <textarea id="inp-json-perfil" class="json-textarea" placeholder='[{ "id": "...", "label": "...", "tipo": "pf", ... }]' spellcheck="false"></textarea>
+        </div>
+        <div id="erro-json-perfil" class="msg-erro" style="display:none"></div>
+        <div class="json-actions">
+          <button id="btn-importar-perfil" class="btn-primary">Importar perfis</button>
+          <button id="btn-exportar-perfis" class="btn-ghost">Exportar perfis importados</button>
+        </div>
+        <div id="perfis-importados-info" class="importados-info" style="display:none"></div>
+      </section>
+
+      <section class="json-section">
+        <h2>Importar regras via JSON</h2>
+        <p class="hint">
+          Cole um array JSON com regras personalizadas. As regras importadas são mescladas às existentes.
+          <a href="#" id="btn-ver-exemplo-regra" class="link-exemplo">Ver exemplo</a>
+        </p>
+        <pre id="exemplo-regra" class="json-exemplo" style="display:none">[
+  { "label": "Tipo de representação", "valor": "Procurador", "tipoCampo": "select" },
+  { "label": "Status", "valor": "Ativo", "tipoCampo": "qualquer" }
+]</pre>
+        <div class="json-input-wrap">
+          <textarea id="inp-json-regra" class="json-textarea" placeholder='[{ "label": "...", "valor": "...", "tipoCampo": "qualquer" }]' spellcheck="false"></textarea>
+        </div>
+        <div id="erro-json-regra" class="msg-erro" style="display:none"></div>
+        <div class="json-actions">
+          <button id="btn-importar-regra" class="btn-primary">Importar regras</button>
+          <button id="btn-exportar-regras" class="btn-ghost">Exportar regras salvas</button>
+        </div>
+      </section>
+
+      <section class="nova-regra-section">
+        <h2>Nova regra</h2>
+        <p class="hint">
+          Define o que preencher quando o label/contexto de um campo contiver o texto informado.
+          Funciona em inputs, textareas e selects (para selects, o valor deve corresponder a uma das opções).
+        </p>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="inp-label">Texto do campo <span class="req">*</span></label>
+            <input id="inp-label" type="text" placeholder="Ex: Tipo de representação" />
+            <span class="field-hint">Trecho do label, placeholder ou nome do campo no formulário.</span>
+          </div>
+          <div class="form-field form-field--sm">
+            <label for="inp-tipo-campo">Tipo de campo</label>
+            <select id="inp-tipo-campo">
+              <option value="qualquer">Qualquer</option>
+              <option value="text">Texto / Input</option>
+              <option value="select">Select</option>
+              <option value="checkbox">Checkbox</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="inp-valor">Valor a preencher <span class="req">*</span></label>
+            <input id="inp-valor" type="text" placeholder="Ex: Sócio-Administrador" />
+            <span class="field-hint">
+              Para selects: texto da opção (correspondência parcial).
+              Para checkboxes: <code>true</code> para marcar, <code>false</code> para desmarcar.
+            </span>
+          </div>
+        </div>
+
+        <div id="erro-nova" class="msg-erro" style="display:none"></div>
+        <button id="btn-adicionar" class="btn-primary">Adicionar regra</button>
+      </section>
+
+      <section class="lista-section">
+        <div class="lista-header">
+          <h2>Regras salvas <span id="contador" class="contador"></span></h2>
+          <button id="btn-limpar-tudo" class="btn-danger-sm" style="display:none">Remover todas</button>
+        </div>
+        <div id="lista-regras" class="lista-regras">
+          <p class="lista-vazia">Nenhuma regra cadastrada.</p>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" style="display:none"></div>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

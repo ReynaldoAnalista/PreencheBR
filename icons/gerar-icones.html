@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gerar Ícones PreencheBR</title>
+  <style>
+    body { font-family: sans-serif; padding: 32px; background: #f0f4f8; }
+    h2 { color: #009c3b; }
+    .previews { display: flex; align-items: flex-end; gap: 24px; margin: 24px 0; flex-wrap: wrap; }
+    .preview { text-align: center; }
+    .preview span { display: block; font-size: 12px; color: #555; margin-top: 6px; }
+    button { padding: 12px 28px; background: #009c3b; color: #fff; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; margin-top: 16px; }
+    button:hover { background: #007a2f; }
+    #status { margin-top: 16px; font-weight: bold; color: #333; }
+  </style>
+</head>
+<body>
+  <h2>Gerador de Ícones — PreencheBR</h2>
+  <p>Clique no botão para gerar e baixar os 4 ícones PNG a partir de <strong>icone-preenche.png</strong>.</p>
+
+  <div class="previews" id="previews"></div>
+
+  <button onclick="gerarIcones()">Baixar icon16, icon32, icon48 e icon128</button>
+  <div id="status"></div>
+
+  <script>
+    var sizes = [16, 32, 48, 128];
+
+    function gerarIcones() {
+      var img = new Image();
+      img.onload = function () {
+        var previews = document.getElementById('previews');
+        previews.innerHTML = '';
+        var count = 0;
+        sizes.forEach(function (size) {
+          var canvas = document.createElement('canvas');
+          canvas.width = size;
+          canvas.height = size;
+          canvas.getContext('2d').drawImage(img, 0, 0, size, size);
+
+          var wrapper = document.createElement('div');
+          wrapper.className = 'preview';
+          var prev = document.createElement('canvas');
+          prev.width = size;
+          prev.height = size;
+          prev.style.border = '1px solid #ddd';
+          prev.style.background = '#fff';
+          prev.getContext('2d').drawImage(img, 0, 0, size, size);
+          var label = document.createElement('span');
+          label.textContent = size + 'x' + size;
+          wrapper.appendChild(prev);
+          wrapper.appendChild(label);
+          previews.appendChild(wrapper);
+
+          canvas.toBlob(function (blob) {
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.download = 'icon' + size + '.png';
+            a.href = url;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function () {
+              URL.revokeObjectURL(url);
+              document.body.removeChild(a);
+            }, 500);
+            count++;
+            if (count === sizes.length) {
+              document.getElementById('status').textContent =
+                '✅ Pronto! Mova os 4 arquivos baixados para esta pasta (icons/).';
+            }
+          }, 'image/png');
+        });
+      };
+      img.onerror = function () {
+        document.getElementById('status').textContent =
+          '❌ Erro ao carregar icone-preenche.png. Verifique se o arquivo está na mesma pasta.';
+      };
+      img.src = 'icone-preenche.png';
+    }
+  </script>
+</body>
+</html>

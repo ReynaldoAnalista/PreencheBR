@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Teste de Formulário — PreencheBR</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; color: #333; padding: 32px 16px; }
+    .page { max-width: 720px; margin: 0 auto; }
+    h1 { color: #009c3b; font-size: 28px; margin-bottom: 4px; }
+    .badge { display: inline-block; background: #009c3b; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 12px; margin-bottom: 24px; }
+    .card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); margin-bottom: 24px; }
+    h2 { font-size: 15px; text-transform: uppercase; letter-spacing: 0.5px; color: #009c3b; margin-bottom: 16px; border-bottom: 2px solid #e8f5e9; padding-bottom: 8px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .full { grid-column: 1 / -1; }
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    label { font-size: 12px; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 0.3px; }
+    input, select, textarea {
+      width: 100%; padding: 9px 12px; border: 1.5px solid #d1d5db;
+      border-radius: 6px; font-size: 14px; outline: none;
+      transition: border-color 0.2s; background: #fff;
+    }
+    input:focus, select:focus, textarea:focus { border-color: #009c3b; }
+    textarea { resize: vertical; min-height: 80px; }
+    button[type="submit"] {
+      width: 100%; padding: 13px; background: #009c3b; color: #fff;
+      border: none; border-radius: 8px; font-size: 15px; font-weight: 600;
+      cursor: pointer; margin-top: 8px;
+    }
+    button[type="submit"]:hover { background: #007a2f; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>PreencheBR</h1>
+    <span class="badge">Formulário de Teste</span>
+
+    <form id="form-teste" onsubmit="return false;">
+
+      <div class="card">
+        <h2>Pessoa Física</h2>
+        <div class="grid">
+          <div class="field full">
+            <label for="nome-completo">Nome Completo</label>
+            <input type="text" id="nome-completo" name="nomeCompleto" placeholder="Nome completo" />
+          </div>
+          <div class="field">
+            <label for="primeiro-nome">Primeiro Nome</label>
+            <input type="text" id="primeiro-nome" name="firstName" placeholder="Primeiro nome" />
+          </div>
+          <div class="field">
+            <label for="sobrenome">Sobrenome</label>
+            <input type="text" id="sobrenome" name="lastName" placeholder="Sobrenome" />
+          </div>
+          <div class="field">
+            <label for="cpf">CPF</label>
+            <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" />
+          </div>
+          <div class="field">
+            <label for="rg">RG</label>
+            <input type="text" id="rg" name="rg" placeholder="00.000.000-0" />
+          </div>
+          <div class="field">
+            <label for="nascimento">Data de Nascimento</label>
+            <input type="date" id="nascimento" name="dataNascimento" />
+          </div>
+          <div class="field">
+            <label for="genero">Gênero</label>
+            <select id="genero" name="genero">
+              <option value="">Selecione</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Feminino">Feminino</option>
+              <option value="Outro">Outro</option>
+              <option value="Prefiro não informar">Prefiro não informar</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="profissao">Profissão</label>
+            <input type="text" id="profissao" name="profissao" placeholder="Profissão" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Contato</h2>
+        <div class="grid">
+          <div class="field full">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="seu@email.com" />
+          </div>
+          <div class="field">
+            <label for="telefone">Telefone</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(00) 0000-0000" />
+          </div>
+          <div class="field">
+            <label for="celular">Celular / WhatsApp</label>
+            <input type="tel" id="celular" name="celular" placeholder="(00) 00000-0000" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Endereço</h2>
+        <div class="grid">
+          <div class="field">
+            <label for="cep">CEP</label>
+            <input type="text" id="cep" name="cep" placeholder="00000-000" />
+          </div>
+          <div class="field">
+            <label for="pais">País</label>
+            <select id="pais" name="pais">
+              <option value="">Selecione</option>
+              <option value="Brasil">Brasil</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Portugal">Portugal</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="logradouro">Logradouro / Endereço</label>
+            <input type="text" id="logradouro" name="endereco" placeholder="Rua, Avenida..." />
+          </div>
+          <div class="field">
+            <label for="numero">Número</label>
+            <input type="text" id="numero" name="numero" placeholder="Número" />
+          </div>
+          <div class="field">
+            <label for="complemento">Complemento</label>
+            <input type="text" id="complemento" name="complemento" placeholder="Apto, sala..." />
+          </div>
+          <div class="field">
+            <label for="bairro">Bairro</label>
+            <input type="text" id="bairro" name="bairro" placeholder="Bairro" />
+          </div>
+          <div class="field">
+            <label for="cidade">Cidade</label>
+            <input type="text" id="cidade" name="cidade" placeholder="Cidade" />
+          </div>
+          <div class="field">
+            <label for="estado">Estado</label>
+            <select id="estado" name="estado">
+              <option value="">Selecione</option>
+              <option value="AC">AC</option>
+              <option value="AL">AL</option>
+              <option value="AP">AP</option>
+              <option value="AM">AM</option>
+              <option value="BA">BA</option>
+              <option value="CE">CE</option>
+              <option value="DF">DF</option>
+              <option value="ES">ES</option>
+              <option value="GO">GO</option>
+              <option value="MA">MA</option>
+              <option value="MT">MT</option>
+              <option value="MS">MS</option>
+              <option value="MG">MG</option>
+              <option value="PA">PA</option>
+              <option value="PB">PB</option>
+              <option value="PR">PR</option>
+              <option value="PE">PE</option>
+              <option value="PI">PI</option>
+              <option value="RJ">RJ</option>
+              <option value="RN">RN</option>
+              <option value="RS">RS</option>
+              <option value="RO">RO</option>
+              <option value="RR">RR</option>
+              <option value="SC">SC</option>
+              <option value="SP">SP</option>
+              <option value="SE">SE</option>
+              <option value="TO">TO</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Dados Empresariais</h2>
+        <div class="grid">
+          <div class="field full">
+            <label for="razao-social">Razão Social</label>
+            <input type="text" id="razao-social" name="razaoSocial" placeholder="Razão social" />
+          </div>
+          <div class="field full">
+            <label for="nome-fantasia">Nome Fantasia</label>
+            <input type="text" id="nome-fantasia" name="nomeFantasia" placeholder="Nome fantasia" />
+          </div>
+          <div class="field">
+            <label for="cnpj">CNPJ</label>
+            <input type="text" id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" />
+          </div>
+          <div class="field">
+            <label for="ie">Inscrição Estadual</label>
+            <input type="text" id="ie" name="inscricaoEstadual" placeholder="Inscrição estadual" />
+          </div>
+          <div class="field">
+            <label for="im">Inscrição Municipal</label>
+            <input type="text" id="im" name="inscricaoMunicipal" placeholder="Inscrição municipal" />
+          </div>
+          <div class="field">
+            <label for="email-comercial">E-mail Comercial</label>
+            <input type="email" id="email-comercial" name="emailComercial" placeholder="contato@empresa.com" />
+          </div>
+          <div class="field">
+            <label for="tel-comercial">Telefone Comercial</label>
+            <input type="tel" id="tel-comercial" name="telefoneComercial" placeholder="(00) 0000-0000" />
+          </div>
+          <div class="field">
+            <label for="site">Site</label>
+            <input type="url" id="site" name="site" placeholder="https://..." />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Dados do Veículo</h2>
+        <div class="grid">
+          <div class="field">
+            <label for="placa">Placa</label>
+            <input type="text" id="placa" name="placa" placeholder="ABC-1D23" />
+          </div>
+          <div class="field">
+            <label for="renavam">RENAVAM</label>
+            <input type="text" id="renavam" name="renavam" placeholder="00000000-00" />
+          </div>
+          <div class="field full">
+            <label for="chassi">Chassi / VIN</label>
+            <input type="text" id="chassi" name="chassi" placeholder="9BWZZZ377VT004251" />
+          </div>
+          <div class="field">
+            <label for="marca-veiculo">Marca do Veículo</label>
+            <input type="text" id="marca-veiculo" name="marcaVeiculo" placeholder="Ex: Volkswagen" />
+          </div>
+          <div class="field">
+            <label for="modelo-veiculo">Modelo do Veículo</label>
+            <input type="text" id="modelo-veiculo" name="modeloVeiculo" placeholder="Ex: Gol 1.0" />
+          </div>
+          <div class="field">
+            <label for="ano-veiculo">Ano do Veículo</label>
+            <input type="text" id="ano-veiculo" name="anoVeiculo" placeholder="Ex: 2021" />
+          </div>
+          <div class="field">
+            <label for="cor-veiculo">Cor do Veículo</label>
+            <select id="cor-veiculo" name="corVeiculo">
+              <option value="">Selecione</option>
+              <option value="Branca">Branca</option>
+              <option value="Prata">Prata</option>
+              <option value="Preta">Preta</option>
+              <option value="Cinza">Cinza</option>
+              <option value="Vermelha">Vermelha</option>
+              <option value="Azul">Azul</option>
+              <option value="Verde">Verde</option>
+              <option value="Amarela">Amarela</option>
+              <option value="Bege">Bege</option>
+              <option value="Marrom">Marrom</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="combustivel">Combustível</label>
+            <select id="combustivel" name="combustivel">
+              <option value="">Selecione</option>
+              <option value="Flex">Flex (Gasolina/Etanol)</option>
+              <option value="Gasolina">Gasolina</option>
+              <option value="Etanol">Etanol</option>
+              <option value="Diesel">Diesel</option>
+              <option value="Elétrico">Elétrico</option>
+              <option value="Híbrido">Híbrido</option>
+              <option value="GNV">GNV</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="categoria-veiculo">Categoria do Veículo</label>
+            <select id="categoria-veiculo" name="categoriaVeiculo">
+              <option value="">Selecione</option>
+              <option value="Passeio">Passeio</option>
+              <option value="Comercial Leve">Comercial Leve</option>
+              <option value="Caminhonete">Caminhonete</option>
+              <option value="SUV">SUV</option>
+              <option value="Motocicleta">Motocicleta</option>
+              <option value="Caminhão">Caminhão</option>
+              <option value="Ônibus">Ônibus</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Observações</h2>
+        <div class="field">
+          <label for="observacoes">Observações</label>
+          <textarea id="observacoes" name="observacoes" placeholder="Descreva observações..."></textarea>
+        </div>
+      </div>
+
+      <button type="submit">Enviar (apenas teste — nenhum dado é enviado)</button>
+    </form>
+  </div>
+</body>
+</html>

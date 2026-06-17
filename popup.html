@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PreencheBR</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <img src="icons/icone-preenche.png" alt="PreencheBR" class="logo-icon" />
+        <h1>PreencheBR</h1>
+      </div>
+      <p class="subtitle">Preenchimento automático de formulários brasileiros</p>
+    </header>
+
+    <main>
+      <div class="field-group filter-tipo">
+        <label>Tipo:</label>
+        <div class="radio-group">
+          <label><input type="radio" name="filtro-tipo" value="todos" checked /> Todos</label>
+          <label><input type="radio" name="filtro-tipo" value="pf" /> PF</label>
+          <label><input type="radio" name="filtro-tipo" value="pj" /> PJ</label>
+          <label><input type="radio" name="filtro-tipo" value="veiculo" /> 🚗 Veículo</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="select-perfil">Perfil:</label>
+        <select id="select-perfil"></select>
+      </div>
+
+      <div class="checkbox-group">
+        <label>
+          <input type="checkbox" id="check-aleatorio" />
+          <span>Usar perfil aleatório</span>
+        </label>
+      </div>
+
+      <div class="erro-section">
+        <label class="erro-toggle-label">
+          <input type="checkbox" id="check-modo-erro" />
+          <span>Modo erro <span class="erro-badge">TESTE</span></span>
+        </label>
+        <div id="erro-panel" class="erro-panel" style="display:none">
+          <p class="erro-hint">Campos marcados serão preenchidos com dados inválidos.</p>
+          <div class="erro-campos">
+            <label><input type="checkbox" class="chk-erro" value="cpf" /> CPF inválido</label>
+            <label><input type="checkbox" class="chk-erro" value="cnpj" /> CNPJ inválido</label>
+            <label><input type="checkbox" class="chk-erro" value="email" /> E-mail inválido</label>
+            <label><input type="checkbox" class="chk-erro" value="telefone" /> Telefone inválido</label>
+            <label><input type="checkbox" class="chk-erro" value="cep" /> CEP inválido</label>
+            <label><input type="checkbox" class="chk-erro" value="data" /> Data inválida</label>
+            <label><input type="checkbox" class="chk-erro" value="texto" /> Texto inválido</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button id="btn-preencher" class="btn-primary">Preencher formulário</button>
+        <button id="btn-limpar" class="btn-secondary">Limpar preenchimento</button>
+      </div>
+
+      <div class="status-area" id="status-area">
+        <span id="status-icon">⏳</span>
+        <span id="status-text">Aguardando ação.</span>
+      </div>
+    </main>
+  </div>
+    <footer>
+      <button id="btn-regras" class="btn-regras">⚙ Regras personalizadas</button>
+      <button id="btn-cafe" class="btn-cafe">☕ Pague-me um café</button>
+    </footer>
+  <script src="data/perfis.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
